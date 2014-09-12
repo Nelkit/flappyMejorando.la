@@ -1,6 +1,8 @@
-var lienzo, intervalX, TubosInicio, pts;
+var lienzo, intervalX, juegoInicio, tubosPos, pts, mueveAlas;
 
-TubosInicio = 600;
+juegoInicio = false;
+mueveAlas = true;
+tubosPos = 600;
 pts = 0;
 
 var Element = function(ctx, img, x, y) {
@@ -59,8 +61,8 @@ function iniciar() {
     tubo1 = new Element(contexto,"pipe.png",-70,-150);
     tubo2 = new Element(contexto,"pipe.png",-70,-150);
     tubo3 = new Element(contexto,"pipe.png",-70,-150);
-    flappy = new Element(contexto,"fly2.png",140,200);
-    puntaje = new Text(contexto, pts , 164, 50, "#ffffff");
+    flappy = new Element(contexto,"fly2.png",80,200);
+    puntaje = new Text(contexto, pts , 155, 100, "#ffffff");
 
     window.addEventListener("mousedown", volar, false);
     window.addEventListener("mouseup", caida, false);
@@ -68,6 +70,7 @@ function iniciar() {
 
 window.onload = function() {
     animationX(10, 2);
+    moverAlas ();
 }
 
 function animationX(fps, numero) {
@@ -78,48 +81,52 @@ function animationX(fps, numero) {
         lienzo.draw();
         //capa 2: dibujando arbustos
         arbustos.draw();
-        //capa 3: animando y dibujando los tres pares de tubos que son los obstaculos
-        tubo1.x = tubo1.x <= -70 ? TubosInicio : tubo1.x - 1;
-        tubo2.x = tubo1.x  - separacion;
-        tubo3.x = tubo1.x  + separacion;
-        tubo1.draw();
-        tubo2.draw();
-        tubo3.draw();
 
-        //haciendo que la posicion en eje Y, cambie aleatoriamente
-        if(tubo1.x <= -70){
-            tubo1.y = (aleatorio)*-1;
+        if (juegoInicio) {
+            //capa 3: animando y dibujando los tres pares de tubos que son los obstaculos
+            tubo1.x = tubo1.x <= -70 ? tubosPos : tubo1.x - 1;
+            tubo2.x = tubo1.x  - separacion;
+            tubo3.x = tubo1.x  + separacion;
+            tubo1.draw();
+            tubo2.draw();
+            tubo3.draw();
+
+            //haciendo que la posicion en eje Y, cambie aleatoriamente
+            if(tubo1.x <= -70){
+                tubo1.y = (aleatorio)*-1;
+            };
+
+            //evitar colisiones con tubo nro 1
+            if (tubo1.x <= flappy.x+24 && tubo1.x >= flappy.x-75  && tubo1.y+380<=flappy.y) {
+                clearInterval(intervalX)
+            };
+
+            if (tubo1.x <= flappy.x+24 && tubo1.x >= flappy.x-75  && tubo1.y+285>=flappy.y) {
+                clearInterval(intervalX)
+            };
+
+            //evitar colisiones con tubo nro 2
+            if (tubo2.x <= flappy.x+24 && tubo2.x >= flappy.x-75  && tubo2.y+380<=flappy.y) {
+                clearInterval(intervalX)
+            };
+
+            if (tubo2.x <= flappy.x+24 && tubo2.x >= flappy.x-75  && tubo2.y+285>=flappy.y) {
+                clearInterval(intervalX)
+            };
+
+            //evitar colisiones con tubo nro 3
+            if (tubo3.x <= flappy.x+24 && tubo3.x >= flappy.x-75  && tubo3.y+380<=flappy.y) {
+                clearInterval(intervalX)
+            };
+
+            if (tubo3.x <= flappy.x+24 && tubo3.x >= flappy.x-75  && tubo3.y+285>=flappy.y) {
+                clearInterval(intervalX)
+            };
+
+            //capa 4: animando y dibujando el personaje
+            flappy.y = flappy.y > 386 ? 385 : flappy.y + (numero);
         };
-
-        //evitar colisiones con tubo nro 1
-        if (tubo1.x <= flappy.x+24 && tubo1.x >= flappy.x-75  && tubo1.y+380<=flappy.y) {
-            clearInterval(intervalX)
-        };
-
-        if (tubo1.x <= flappy.x+24 && tubo1.x >= flappy.x-75  && tubo1.y+285>=flappy.y) {
-            clearInterval(intervalX)
-        };
-
-        //evitar colisiones con tubo nro 2
-        if (tubo2.x <= flappy.x+24 && tubo2.x >= flappy.x-75  && tubo2.y+380<=flappy.y) {
-            clearInterval(intervalX)
-        };
-
-        if (tubo2.x <= flappy.x+24 && tubo2.x >= flappy.x-75  && tubo2.y+285>=flappy.y) {
-            clearInterval(intervalX)
-        };
-
-        //evitar colisiones con tubo nro 3
-        if (tubo3.x <= flappy.x+24 && tubo3.x >= flappy.x-75  && tubo3.y+380<=flappy.y) {
-            clearInterval(intervalX)
-        };
-
-        if (tubo3.x <= flappy.x+24 && tubo3.x >= flappy.x-75  && tubo3.y+285>=flappy.y) {
-            clearInterval(intervalX)
-        };
-
-        //capa 4: animando y dibujando el personaje
-        flappy.y = flappy.y > 386 ? 385 : flappy.y + (numero);
+        //hacer que las se muevan
         flappy.draw();
 
         //capa 5:animando y dibujando el objeto que representa la tierra
@@ -143,18 +150,32 @@ function getRandom(min, max) {
 
 function caida() {
     clearInterval(intervalX);
-    flappy.imagenURL = "fly2.png";
-    flappy.createImg();
-    flappy.draw();
     animationX(10,2);
 }
 
 function volar(){
-    TubosInicio = 330;
+    if (juegoInicio) {
+        tubosPos = 330;
+    }else{
+        tubosPos = 600;
+    };
+    juegoInicio = true;
     clearInterval(intervalX);
-    flappy.imagenURL = "fly1.png";
-    flappy.createImg();
-    flappy.draw();
-
     animationX(10,-5);
+}
+
+function moverAlas () {
+    setInterval(function() {
+        if (mueveAlas) {
+            flappy.imagenURL = "fly1.png";
+            flappy.createImg();
+            flappy.draw();
+            mueveAlas = false;
+        }else{
+            flappy.imagenURL = "fly2.png";
+            flappy.createImg();
+            flappy.draw();
+            mueveAlas = true;
+        }
+    }, 180);
 }

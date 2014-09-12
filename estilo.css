@@ -1,4 +1,49 @@
-body{
-    background: #242424;
-    text-align: center;
-}
+
+
+body {
+  background: #242424;
+  text-align: center; }
+
+#wrapper {
+  width: 100%; }
+
+.cols {
+  display: inline-block; }
+
+.sect-1 {
+  width: 8.33%; }
+
+.sect-2 {
+  width: 16.66%; }
+
+.sect-3 {
+  width: 24.99%; }
+
+.sect-4 {
+  width: 33.32%; }
+
+.sect-5 {
+  width: 41.65%; }
+
+.sect-6 {
+  width: 49.98%; }
+
+.sect-7 {
+  width: 58.31%; }
+
+.sect-8 {
+  width: 66.64%; }
+
+.sect-9 {
+  width: 74.97%; }
+
+.sect-10 {
+  width: 83.3%; }
+
+.sect-11 {
+  width: 91.63%; }
+
+.sect-12 {
+  width: 99.99%; }
+
+/*# sourceMappingURL=estilo.css.map */
