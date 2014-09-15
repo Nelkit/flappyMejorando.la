@@ -1,14 +1,33 @@
-
-
+@font-face {
+  font-family: "karmatic_arcaderegular";
+  src: url("fonts/ka1-webfont.eot");
+  src: url("fonts/ka1-webfont.eot?#iefix") format("embedded-opentype");
+  src: url("fonts/ka1-webfont.woff2") format("woff2");
+  src: url("fonts/ka1-webfont.woff") format("woff");
+  src: url("fonts/ka1-webfont.ttf") format("truetype");
+  src: url("fonts/ka1-webfont.svg#karmatic_arcaderegular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
 body {
-  background: #242424;
-  text-align: center; }
+  background: #313131;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  font-family: helvetica; }
 
 #wrapper {
-  width: 100%; }
+  width: 100%;
+  height: 1000px;
+  background: #313131;
+  padding: 0px;
+  letter-spacing: -0.35em;
+  position: relative; }
 
 .cols {
-  display: inline-block; }
+  display: inline-block;
+  vertical-align: top;
+  margin: 0px;
+  vertical-align: center; }
 
 .sect-1 {
   width: 8.33%; }
@@ -45,5 +64,55 @@ body {
 
 .sect-12 {
   width: 99.99%; }
+
+#sidebar {
+  background: #ECF0F1;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  z-index: 2; }
+
+#central {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box; }
+
+#central .top {
+  letter-spacing: normal;
+  background: rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 5px 10px;
+  top: 0px;
+  font-family: karmatic_arcaderegular;
+  color: #ECF0F1; }
+
+#lienzo {
+  margin-top: 40px; }
+
+#phone {
+  margin: 100px auto;
+  width: 360px;
+  height: 667px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background: url(phone.png);
+  padding: 52px 0px;
+  position: relative; }
+
+#phone canvas {
+  position: relative;
+  left: -1px; }
+
+#top_bar {
+  border-bottom: 4px solid #16A085;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  background: #1ABC9C;
+  color: #ECF0F1;
+  font-size: 1.2em;
+  font-family: karmatic_arcaderegular;
+  padding: 20px 0px;
+  letter-spacing: normal; }
 
 /*# sourceMappingURL=estilo.css.map */
