@@ -9,7 +9,7 @@ function init() {
 function loadJSON()
 {
    var http_request = new XMLHttpRequest();
-   var url_source = "http://localhost:3000/list_score";
+   var url_source = "http://flappy-mejorandola.herokuapp.com/list_score";
    validacion_ajax();
 
    http_request.onreadystatechange = function(){
@@ -27,15 +27,6 @@ function loadJSON()
    }
    http_request.open("GET", url_source, true);
    http_request.send();
-}
-
-function putJSON() {
-    var url_source = "http://localhost:3000/insert_score";
-    var request = new XMLHttpRequest();
-    var formElement = document.getElementById("form");
-
-    request.open("GET", url_source, true);
-    request.send(new FormData(formElement));
 }
 
 function validacion_ajax() {
