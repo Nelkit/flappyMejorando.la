@@ -1,37 +1,90 @@
-var sqlite3 = require('sqlite3').verbose(),
-db = new sqlite3.Database('flappy.db'),
+var pg = require('pg');
+//or native libpq bindings
+//var pg = require('pg').native
 PUNTAJE = {};
 
-//crear la tabla en la base de datos
 PUNTAJE.createTable = function()
 {
-    db.run("DROP TABLE IF EXISTS jugadores");
-    db.run("CREATE TABLE IF NOT EXISTS jugadores (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, puntos INTEGER)");
-    console.log("La tabla jugadores ha sido correctamente creada");
+    var client = new pg.Client({
+        user: "yoyrfzgjfuppyi",
+        password: "4vVIbyZ2CAaZsZ1kQvgepUvg2A",
+        database: "d8eqdo1o6qgc4r",
+        port: 5432,
+        host: "ec2-54-197-227-238.compute-1.amazonaws.com",
+        ssl: true
+    });
+    client.connect(function(err) {
+      if(err) {
+        return console.error('no pudo conectar con postgres', err);
+      }
+      client.query('CREATE TABLE jugadores (id serial PRIMARY KEY, nombre TEXT, puntos INT)', function(err, result) {
+        if(err) {
+          return console.error('consulta error en ejecucion', err);
+        }else{
+          console.log("Nueva tabla creada");
+        }
+        client.end();
+      });
+    });
 }
 
-//inserta un nuevo registro en la tabla jugadores
-PUNTAJE.insertScore = function(scoreData)
+PUNTAJE.insertScore = function()
 {
-    var stmt = db.prepare("INSERT INTO jugadores VALUES (?,?,?)");
-    stmt.run(null,scoreData.nombre,scoreData.puntos);
-    stmt.finalize();
+    var client = new pg.Client({
+        user: "yoyrfzgjfuppyi",
+        password: "4vVIbyZ2CAaZsZ1kQvgepUvg2A",
+        database: "d8eqdo1o6qgc4r",
+        port: 5432,
+        host: "ec2-54-197-227-238.compute-1.amazonaws.com",
+        ssl: true
+    });
+    var autoincrement = getRandom(1, 60000);
+    client.connect(function(err) {
+      if(err) {
+        return console.error('no pudo conectar con postgres', err);
+      }
 
-    console.log("Nuevo Puntaje de: "+scoreData.nombre);
+      client.query("INSERT INTO jugadores VALUES ($1, $2, $3)", [autoincrement,'Jose', 3], function(err, result) {
+        if(err) {
+            return console.error('consulta error en ejecucion', err);
+        }else{
+            console.log("Nuevo Registro");
+        }
+        client.end();
+      });
+    });
 }
 
 PUNTAJE.getScore = function(callback)
 {
-    db.all("SELECT * FROM jugadores", function(err, rows) {
+    var client = new pg.Client({
+        user: "yoyrfzgjfuppyi",
+        password: "4vVIbyZ2CAaZsZ1kQvgepUvg2A",
+        database: "d8eqdo1o6qgc4r",
+        port: 5432,
+        host: "ec2-54-197-227-238.compute-1.amazonaws.com",
+        ssl: true
+    });
+    client.connect(function(err) {
+      if(err) {
+        return console.error('no pudo conectar con postgres', err);
+      }
+      client.query('SELECT * FROM jugadores', function(err, results) {
         if(err)
         {
             throw err;
         }
         else
         {
-            callback(null, rows);
+            callback(null, results.rows);
         }
+        client.end();
+      });
     });
+}
+
+function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 module.exports = PUNTAJE;
