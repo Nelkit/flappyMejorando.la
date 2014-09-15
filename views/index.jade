@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    div(id="wrapper")
+        section(class="cols sect-3", id="sidebar")
+            div(id="top_bar")
+                span= title
+            article(id="puntaje")
+                h2 Puntaje
+                table(id="lista", width="100%")
+        section(class="cols sect-9",id="central")
+            div(id="phone")
+                canvas(id="lienzo")
+    script(type='text/javascript').
+        iniciar()
+        init()
+
