@@ -17,6 +17,7 @@ PUNTAJE.createTable = function()
       if(err) {
         return console.error('no pudo conectar con postgres', err);
       }
+      client.query('DROP TABLE IF EXISTS jugadores');
       client.query('CREATE TABLE jugadores (id serial PRIMARY KEY, nombre TEXT, puntos INT)', function(err, result) {
         if(err) {
           return console.error('consulta error en ejecucion', err);
@@ -28,8 +29,9 @@ PUNTAJE.createTable = function()
     });
 }
 
-PUNTAJE.insertScore = function()
+PUNTAJE.insertScore = function(scoreData)
 {
+    var autoincrement = getRandom(1, 60000);
     var client = new pg.Client({
         user: "yoyrfzgjfuppyi",
         password: "4vVIbyZ2CAaZsZ1kQvgepUvg2A",
@@ -38,17 +40,16 @@ PUNTAJE.insertScore = function()
         host: "ec2-54-197-227-238.compute-1.amazonaws.com",
         ssl: true
     });
-    var autoincrement = getRandom(1, 60000);
     client.connect(function(err) {
       if(err) {
         return console.error('no pudo conectar con postgres', err);
       }
 
-      client.query("INSERT INTO jugadores VALUES ($1, $2, $3)", [autoincrement,'Jose', 3], function(err, result) {
+      client.query("INSERT INTO jugadores VALUES ($1, $2, $3)", [autoincrement,scoreData.nombre,scoreData.puntos], function(err, result) {
         if(err) {
             return console.error('consulta error en ejecucion', err);
         }else{
-            console.log("Nuevo Registro");
+            console.log("Nuevo Registro "+scoreData.nombre);
         }
         client.end();
       });

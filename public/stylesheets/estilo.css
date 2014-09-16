@@ -13,7 +13,13 @@ body {
   margin: 0px;
   padding: 0px;
   text-align: center;
-  font-family: helvetica; }
+  font-family: helvetica;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 #wrapper {
   width: 100%;
@@ -107,13 +113,24 @@ body {
   position: relative;
   left: -1px; }
 
+#phone #preparate {
+  cursor: pointer;
+  background: url(../images/getready.png);
+  position: absolute;
+  display: block;
+  top: 90px;
+  left: 10px;
+  z-index: 2;
+  height: 512px;
+  width: 343px; }
+
 #top_bar {
   border-bottom: 4px solid #16A085;
   width: 100%;
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 2;
+  z-index: 3;
   background: #1ABC9C;
   color: #ECF0F1;
   font-size: 1.2em;

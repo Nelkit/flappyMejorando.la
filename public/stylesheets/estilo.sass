@@ -2,6 +2,14 @@
     box-sizing: $a
     -moz-box-sizing: $a
 
+@mixin disable-select($a)
+    -webkit-touch-callout: $a
+    -webkit-user-select: $a
+    -khtml-user-select: $a
+    -moz-user-select: $a
+    -ms-user-select: $a
+    user-select: $a
+
 @mixin border-radius($a, $b, $c, $d)
     border-radius: $a $b $c $d
     -moz-border-radius: $a $b $c $d
@@ -25,6 +33,7 @@ body
     padding: 0px
     text-align: center
     font-family: helvetica
+    +disable-select(none)
 
 #wrapper
     width: 100%
@@ -116,13 +125,24 @@ body
     position: relative
     left: -1px
 
+#phone #preparate
+    cursor: pointer
+    background: url(../images/getready.png)
+    position: absolute
+    display: block
+    top: 90px
+    left: 10px
+    z-index: 2
+    height: 512px
+    width: 343px
+
 #top_bar
     border-bottom: 4px solid #16A085
     width: 100%
     position: fixed
     top: 0px
     left: 0px
-    z-index: 2
+    z-index: 3
     background: #1ABC9C
     color: #ECF0F1
     font-size: 1.2em

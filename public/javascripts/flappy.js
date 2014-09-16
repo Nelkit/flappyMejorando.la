@@ -51,6 +51,8 @@ Text.prototype.drawText = function ()
 
 function iniciar() {
     var canvas = document.getElementById("lienzo");
+    var areaJuego = document.getElementById("phone");
+
     canvas.width = 340;
     canvas.height  = 510;
     var contexto = canvas.getContext("2d");
@@ -64,8 +66,8 @@ function iniciar() {
     flappy = new Element(contexto,"fly2.png",80,200);
     puntaje = new Text(contexto, pts , 155, 100, "#ffffff");
 
-    window.addEventListener("mousedown", volar, false);
-    window.addEventListener("mouseup", caida, false);
+    areaJuego.addEventListener("mousedown", volar, false);
+    areaJuego.addEventListener("mouseup", caida, false);
 };
 
 window.onload = function() {
@@ -154,6 +156,8 @@ function caida() {
 }
 
 function volar(){
+    var preImage = document.getElementById("preparate");
+    preImage.className += " fadeOut";
     if (juegoInicio) {
         tubosPos = 330;
     }else{
