@@ -8,13 +8,23 @@ block content
             article(id="puntaje")
                 h2 Puntaje
                 table(id="lista", width="100%")
-            article
-                form(method="POST", action="/insert_score")
-                    input(type="text",name="name")
-                    input(type="text",name="score")
-                    input(type="submit", value="Enviar")
+
         section(class="cols sect-9",id="central")
             div(id="phone")
+                div(id="perdiste", class="animated bounceIn")
+                    section(class="container max-m")
+                        article
+                            span Puntos:
+                                i(id="lbl_puntos")  0
+                            span Mejor: 200
+                        article
+                            form(method="POST", action="/insert_score")
+                                input(type="text",name="name", id="name", placeholder="Tu Nombre", required)
+                                hr
+                                input(type="hidden",name="score", id="score", value="0")
+                                input(type="submit", class="btn-send" ,value="Guardar Puntaje")
+
+                    section(class="container min-m", id="btn-newgame") ▶ Jugar de Nuevo
                 div(id="preparate", class="animated")
                 canvas(id="lienzo")
     script(type='text/javascript').

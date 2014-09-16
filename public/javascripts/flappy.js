@@ -1,4 +1,4 @@
-var lienzo, intervalX, juegoInicio, tubosPos, pts, mueveAlas;
+var lienzo, intervalX, intervalFlappy, juegoInicio, tubosPos, pts, mueveAlas;
 
 juegoInicio = false;
 mueveAlas = true;
@@ -9,6 +9,7 @@ var Element = function(ctx, img, x, y) {
     this.contexto = ctx;
     this.imagenURL = img;
     this.imagenOK = false;
+    this.vivo = true;
     this.x = x;
     this.y = y;
 
@@ -47,8 +48,6 @@ Text.prototype.drawText = function ()
     this.contexto.strokeText(this.texto,this.x,this.y);
 }
 
-
-
 function iniciar() {
     var canvas = document.getElementById("lienzo");
     var areaJuego = document.getElementById("phone");
@@ -64,6 +63,7 @@ function iniciar() {
     tubo2 = new Element(contexto,"pipe.png",-70,-150);
     tubo3 = new Element(contexto,"pipe.png",-70,-150);
     flappy = new Element(contexto,"fly2.png",80,200);
+    gameover = new Element(contexto,"game_over.png",40,70);
     puntaje = new Text(contexto, pts , 155, 100, "#ffffff");
 
     areaJuego.addEventListener("mousedown", volar, false);
@@ -75,7 +75,7 @@ window.onload = function() {
     moverAlas ();
 }
 
-function animationX(fps, numero) {
+function animationX(fps, sentido) {
     intervalX = setInterval(function() {
         var aleatorio = getRandom(40,200);
         var separacion = 200;
@@ -100,33 +100,38 @@ function animationX(fps, numero) {
 
             //evitar colisiones con tubo nro 1
             if (tubo1.x <= flappy.x+24 && tubo1.x >= flappy.x-75  && tubo1.y+380<=flappy.y) {
-                clearInterval(intervalX)
+                perdiste();
             };
 
             if (tubo1.x <= flappy.x+24 && tubo1.x >= flappy.x-75  && tubo1.y+285>=flappy.y) {
-                clearInterval(intervalX)
+                perdiste();
             };
 
             //evitar colisiones con tubo nro 2
             if (tubo2.x <= flappy.x+24 && tubo2.x >= flappy.x-75  && tubo2.y+380<=flappy.y) {
-                clearInterval(intervalX)
+                perdiste();
             };
 
             if (tubo2.x <= flappy.x+24 && tubo2.x >= flappy.x-75  && tubo2.y+285>=flappy.y) {
-                clearInterval(intervalX)
+                perdiste();
             };
 
             //evitar colisiones con tubo nro 3
             if (tubo3.x <= flappy.x+24 && tubo3.x >= flappy.x-75  && tubo3.y+380<=flappy.y) {
-                clearInterval(intervalX)
+                perdiste();
             };
 
             if (tubo3.x <= flappy.x+24 && tubo3.x >= flappy.x-75  && tubo3.y+285>=flappy.y) {
-                clearInterval(intervalX)
+                perdiste();
             };
 
             //capa 4: animando y dibujando el personaje
-            flappy.y = flappy.y > 386 ? 385 : flappy.y + (numero);
+            if (flappy.y > 386) {
+                flappy.y = 386;
+                perdiste();
+            }else{
+                flappy.y = flappy.y + (sentido);
+            }
         };
         //hacer que las se muevan
         flappy.draw();
@@ -138,7 +143,11 @@ function animationX(fps, numero) {
         puntaje.drawText();
 
         if (tubo1.x == flappy.x || tubo2.x == flappy.x || tubo3.x == flappy.x) {
+            var puntos = document.getElementById("score");
+            var puntajeFinal = document.getElementById("lbl_puntos");
             pts = pts + 1;
+            puntos.value = pts;
+            puntajeFinal.innerHTML = pts;
             puntaje.texto = pts;
             puntaje.drawText();
         };
@@ -157,19 +166,21 @@ function caida() {
 
 function volar(){
     var preImage = document.getElementById("preparate");
-    preImage.className += " fadeOut";
-    if (juegoInicio) {
-        tubosPos = 330;
-    }else{
-        tubosPos = 600;
+    if (flappy.vivo) {
+        preImage.className += " fadeOut";
+        if (juegoInicio) {
+            tubosPos = 330;
+        }else{
+            tubosPos = 600;
+        };
+        juegoInicio = true;
+        clearInterval(intervalX);
+        animationX(10,-5);
     };
-    juegoInicio = true;
-    clearInterval(intervalX);
-    animationX(10,-5);
 }
 
 function moverAlas () {
-    setInterval(function() {
+    intervalFlappy = setInterval(function() {
         if (mueveAlas) {
             flappy.imagenURL = "fly1.png";
             flappy.createImg();
@@ -182,4 +193,15 @@ function moverAlas () {
             mueveAlas = true;
         }
     }, 180);
+}
+
+function perdiste() {
+    var perdiste = document.getElementById("perdiste");
+    flappy.vivo = false;
+    puntaje.texto = '';
+    puntaje.drawText();
+    gameover.draw();
+    perdiste.style.display = "block";
+    clearInterval(intervalX);
+    clearInterval(intervalFlappy);
 }
