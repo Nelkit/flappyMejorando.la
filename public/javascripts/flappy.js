@@ -1,4 +1,4 @@
-var lienzo, intervalX, intervalFlappy, juegoInicio, tubosPos, pts, mueveAlas;
+var lienzo,intervalX, intervalFlappy, juegoInicio, tubosPos, pts, mueveAlas;
 
 juegoInicio = false;
 mueveAlas = true;
@@ -51,6 +51,7 @@ Text.prototype.drawText = function ()
 function iniciar() {
     var canvas = document.getElementById("lienzo");
     var areaJuego = document.getElementById("phone");
+
 
     canvas.width = 340;
     canvas.height  = 510;
@@ -166,17 +167,17 @@ function caida() {
 
 function volar(){
     var preImage = document.getElementById("preparate");
-    if (flappy.vivo) {
-        preImage.className += " fadeOut";
-        if (juegoInicio) {
-            tubosPos = 330;
-        }else{
-            tubosPos = 600;
-        };
-        juegoInicio = true;
-        clearInterval(intervalX);
-        animationX(10,-5);
+    clearInterval(intervalX);
+    preImage.className += " fadeOut";
+    if (juegoInicio) {
+        tubosPos = 330;
+    }else{
+        tubosPos = 600;
     };
+    juegoInicio = true;
+    if(flappy.vivo){
+        animationX(10,-5);
+    }
 }
 
 function moverAlas () {
@@ -197,11 +198,11 @@ function moverAlas () {
 
 function perdiste() {
     var perdiste = document.getElementById("perdiste");
-    flappy.vivo = false;
     puntaje.texto = '';
     puntaje.drawText();
     gameover.draw();
     perdiste.style.display = "block";
     clearInterval(intervalX);
     clearInterval(intervalFlappy);
+    flappy.vivo = false;
 }
