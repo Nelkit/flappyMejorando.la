@@ -50,8 +50,8 @@ Text.prototype.drawText = function ()
 
 function iniciar() {
     var canvas = document.getElementById("lienzo");
-    var areaJuego = document.getElementById("phone");
-
+    var areaJuego = document.getElementById("preparate");
+    var nuevoJuego = document.getElementById("btn-newgame");
 
     canvas.width = 340;
     canvas.height  = 510;
@@ -69,6 +69,7 @@ function iniciar() {
 
     areaJuego.addEventListener("mousedown", volar, false);
     areaJuego.addEventListener("mouseup", caida, false);
+    nuevoJuego.addEventListener("click",reiniciarJuego);
 };
 
 window.onload = function() {
@@ -205,4 +206,23 @@ function perdiste() {
     clearInterval(intervalX);
     clearInterval(intervalFlappy);
     flappy.vivo = false;
+    var areaJuego = document.getElementById("preparate");
+    areaJuego.style.pointerEvents = 'none';
+}
+
+function reiniciarJuego() {
+    var perdiste = document.getElementById("perdiste");
+    var preImage = document.getElementById("preparate");
+    var areaJuego = document.getElementById("preparate");
+    areaJuego.style.pointerEvents = 'auto';
+    pts = 0;
+    juegoInicio = false;
+    perdiste.style.display = "none";
+    preImage.classList.remove("fadeOut");
+    preImage.style.display = "block";
+    flappy.y = 200;
+    tubosPos = 600;
+    clearInterval(intervalX);
+    iniciar();
+    window.onload();
 }

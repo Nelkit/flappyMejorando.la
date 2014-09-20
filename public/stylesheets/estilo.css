@@ -80,7 +80,7 @@ hr {
   background: #ECF0F1;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  padding: 76px 10px;
+  padding: 88px 10px;
   left: 0px;
   top: 0px;
   height: 100%;
@@ -218,6 +218,12 @@ hr {
   padding: 20px 0px;
   letter-spacing: normal; }
 
+#top_bar span {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  top: 5px; }
+
 #puntaje {
   width: 100%;
   background: #d6dfe2;
@@ -253,5 +259,30 @@ td {
 
 #lbl_puntos {
   font-style: normal; }
+
+.btn-github {
+  margin-left: 20px;
+  vertical-align: top;
+  padding: 5px 10px 5px 40px;
+  font-size: 1.2rem;
+  display: inline-block !important;
+  color: #1ABC9C;
+  font-family: helvetica;
+  text-decoration: none;
+  background-image: url(../images/github.png);
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: 10px 3px;
+  background-color: white;
+  border-bottom: 3px solid #BDC3C7;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px; }
+
+.btn-github:hover {
+  text-decoration: none;
+  background-color: #2C3E50;
+  border-bottom: 3px solid #1ABC9C; }
 
 /*# sourceMappingURL=estilo.css.map */

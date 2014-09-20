@@ -1,3 +1,8 @@
+var url = {
+  dev:"http://localhost:3000",
+  pro:"http://flappy-mejorandola.herokuapp.com"
+}
+
 function init() {
     loadJSON();
     var refresh = document.getElementById("refresh");
@@ -9,7 +14,7 @@ function init() {
 function loadJSON()
 {
    var http_request = new XMLHttpRequest();
-   var url_source = "http://flappy-mejorandola.herokuapp.com/list_score";
+   var url_source = url.dev+"/list_score";
    validacion_ajax();
 
    http_request.onreadystatechange = function(){
