@@ -47,6 +47,7 @@ hr
     padding: 0px
     letter-spacing: -0.35em
     position: relative
+    min-width: 740px !important
 
 .cols
     letter-spacing:normal
@@ -94,6 +95,7 @@ hr
 #sidebar
     background: #ECF0F1
     +box-sizing(border-box)
+    position:relative
     padding: 88px 10px
     left: 0px
     top: 0px
@@ -203,6 +205,7 @@ hr
     color: white
 
 #top_bar
+    min-width: 740px !important
     border-bottom: 4px solid #16A085
     width: 100%
     position: fixed
@@ -222,9 +225,10 @@ hr
     position: relative
     top: 5px
 
-#puntaje
+.block-sidebar
     width: 100%
     background: #d6dfe2
+    margin-bottom: 20px
     letter-spacing: normal
     +border-radius(10px, 10px, 10px, 10px)
     +box-sizing(border-box)
@@ -245,7 +249,7 @@ th
 td
     padding: 8px
 
-#lista td, #lista th
+table td, table th
     background-color: white
     color: #717171
 
@@ -274,3 +278,12 @@ td
     text-decoration: none
     background-color: #2C3E50
     border-bottom: 3px solid #1ABC9C
+
+#btns_social section
+    width: 100% !important
+    background: white !important
+    padding: 10px 0px
+
+#btns_social section a, #btns_social section div
+    display: inline-block
+    vertical-align: top

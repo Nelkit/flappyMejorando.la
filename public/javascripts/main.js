@@ -14,7 +14,7 @@ function init() {
 function loadJSON()
 {
    var http_request = new XMLHttpRequest();
-   var url_source = url.dev+"/list_score";
+   var url_source = url.pro+"/list_score";
    validacion_ajax();
 
    http_request.onreadystatechange = function(){
