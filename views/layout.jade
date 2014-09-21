@@ -2,10 +2,9 @@ doctype html
 html(lang="es")
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/estilo.css')
-    link(rel='stylesheet', href='/stylesheets/animate.css')
-    script(src='/javascripts/main.js')
-    script(src="/javascripts/flappy.js")
+    link(rel='stylesheet', href='/stylesheets/estilo.min.css')
+    link(rel='stylesheet', href='/stylesheets/animate.min.css')
+    script(src='/javascripts/minified/all.min.js')
     div(id="fb-root")
     script(type='text/javascript').
         (function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.0"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'))

@@ -4,7 +4,7 @@
 var url = {
   dev:"http://localhost:3000",
   pro:"http://flappy-mejorandola.herokuapp.com"
-}
+};
 
 //Función de inicio
 function init() {
@@ -26,7 +26,7 @@ function loadJSON()
    var http_request = new XMLHttpRequest();
 
    //defino una variable para la url
-   var url_source = url.pro+"/list_score";
+   var url_source = url.dev+"/list_score";
 
    //llamo la funcion que valida que el navegador se compatible con ajax
    validacion_ajax();
@@ -60,7 +60,7 @@ function loadJSON()
         //renderizo el Mejor Puntaje
         mejorPuntaje.innerHTML = " "+jsonObjects[0].puntos;
       }
-   }
+   };
    http_request.open("GET", url_source, true);
    http_request.send();
 }
