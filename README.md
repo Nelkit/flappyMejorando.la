@@ -5,7 +5,7 @@ Clon de "Flappy Bird" desarrollado con Canvas y Html5.
 
 ![alt tag](https://raw.githubusercontent.com/Nelkit/flappyMejorando.la/master/public/images/preview.png)
 
-Desarrollado con fines meramente de aprendizaje 
+Desarrollado con fines meramente de aprendizaje, como una tarea del curso de programación Básica de [Mejorando.la](http://mejorando.la)
 
 Jugar online: http://flappy-mejorandola.herokuapp.com/
 
