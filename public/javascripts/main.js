@@ -26,7 +26,7 @@ function loadJSON()
    var http_request = new XMLHttpRequest();
 
    //defino una variable para la url
-   var url_source = url.pro+"/list_score";
+   var url_source = url.dev+"/list_score";
 
    //llamo la funcion que valida que el navegador se compatible con ajax
    validacion_ajax();
