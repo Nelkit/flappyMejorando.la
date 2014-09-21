@@ -1,8 +1,8 @@
+//importar de node_modules pg para hacer consultas a posgresql
 var pg = require('pg');
-//or native libpq bindings
-//var pg = require('pg').native
 PUNTAJE = {};
 
+//crear Table de jugadores
 PUNTAJE.createTable = function()
 {
     var client = new pg.Client({
@@ -29,6 +29,7 @@ PUNTAJE.createTable = function()
     });
 }
 
+//insertar puntaje en la tabla de jugadores
 PUNTAJE.insertScore = function(scoreData)
 {
     var autoincrement = getRandom(1, 60000);
@@ -56,6 +57,7 @@ PUNTAJE.insertScore = function(scoreData)
     });
 }
 
+//obtener el puntaje de los usuarios ordenados de mayor a menor
 PUNTAJE.getScore = function(callback)
 {
     var client = new pg.Client({
@@ -70,7 +72,7 @@ PUNTAJE.getScore = function(callback)
       if(err) {
         return console.error('no pudo conectar con postgres', err);
       }
-      client.query('SELECT * FROM jugadores', function(err, results) {
+      client.query('SELECT * FROM jugadores ORDER BY puntos DESC LIMIT 5', function(err, results) {
         if(err)
         {
             throw err;
@@ -84,8 +86,10 @@ PUNTAJE.getScore = function(callback)
     });
 }
 
+//funcion que genera numeros aleatorios
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//exportar modulo para poder utlizarlo desde otro archivo
 module.exports = PUNTAJE;

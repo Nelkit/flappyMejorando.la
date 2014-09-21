@@ -28,7 +28,6 @@ hr {
 
 #wrapper {
   width: 100%;
-  height: 1000px;
   background: #313131;
   padding: 0px;
   letter-spacing: -0.35em;
@@ -85,11 +84,14 @@ hr {
   left: 0px;
   top: 0px;
   height: 100%;
-  z-index: 2; }
+  z-index: 2;
+  overflow-y: auto; }
 
 #central {
   box-sizing: border-box;
-  -moz-box-sizing: border-box; }
+  -moz-box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%; }
 
 #central .top {
   letter-spacing: normal;
@@ -240,9 +242,6 @@ hr {
   padding: 10px 0px;
   border: 2px solid #bdc6c8; }
 
-#puntaje h2 {
-  color: #34495E; }
-
 table {
   border-collapse: collapse; }
 
@@ -260,7 +259,7 @@ table td, table th {
   background-color: white;
   color: #717171; }
 
-#lbl_puntos {
+#lbl_puntos, #lbl_mejor {
   font-style: normal; }
 
 .btn-github {
@@ -296,5 +295,27 @@ table td, table th {
 #btns_social section a, #btns_social section div {
   display: inline-block;
   vertical-align: top; }
+
+#btn_fullscreen {
+  text-decoration: none;
+  background: #E74C3C;
+  color: white;
+  display: inline-block;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding: 5px 15px;
+  border-bottom: 3px solid #C0392B;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -o-border-radius: 10px 10px 10px 10px; }
+
+#refresh {
+  background-color: #3498DB;
+  color: #ECF0F1;
+  text-decoration: none;
+  border-bottom: 3px solid #2980B9;
+  display: block;
+  padding: 5px 20px; }
 
 /*# sourceMappingURL=estilo.css.map */

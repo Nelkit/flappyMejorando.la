@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Puntaje = require('../models/puntaje');
 
+/* GET insertScore. */
 router.post('/', function(req, res) {
     Puntaje.insertScore(
         {

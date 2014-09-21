@@ -5,8 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+//importar las rutas
 var routes = require('./routes/index');
-var createTable = require('./routes/createTable');
+//var createTable = require('./routes/createTable');
 var insertScore = require('./routes/insertScore');
 var listScore = require('./routes/listScore');
 
@@ -24,8 +25,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//definir las rutas
 app.use('/', routes);
-app.use('/create_table',createTable);
+//app.use('/create_table',createTable);
 app.use('/insert_score',insertScore);
 app.use('/list_score',listScore);
 

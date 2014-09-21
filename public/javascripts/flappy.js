@@ -5,6 +5,7 @@ mueveAlas = true;
 tubosPos = 600;
 pts = 0;
 
+//definimos un prototipo, que utilice para cada objeto canvas
 var Element = function(ctx, img, x, y) {
     this.contexto = ctx;
     this.imagenURL = img;
@@ -16,20 +17,24 @@ var Element = function(ctx, img, x, y) {
     this.createImg();
 };
 
+//comprobar si la imagen de fondo del canvas ha cargado
 Element.prototype.createImg = function () {
     this.imagen = new Image();
     this.imagen.src = this.imagenURL;
     this.imagen.onload = this.confirmItem();
 };
 
+//confirmar que la imagen cargo
 Element.prototype.confirmItem = function () {
     this.imagenOK = true;
 };
 
+//una vez que ya sabemos que la imagen cargo dibujamos el canvas
 Element.prototype.draw = function () {
     this.contexto.drawImage(this.imagen,this.x,this.y);
 };
 
+//definimos un prototipo, que utilice para cada objeto canvas del tipo Texto
 var Text = function(cont, text, x, y, color)
 {
     this.contexto = cont;
@@ -42,16 +47,19 @@ var Text = function(cont, text, x, y, color)
     this.y = y;
 }
 
+//dibujamos el texto en el canvas
 Text.prototype.drawText = function ()
 {
     this.contexto.fillText(this.texto,this.x,this.y);
     this.contexto.strokeText(this.texto,this.x,this.y);
 }
 
+//funcion de inicio
 function iniciar() {
     var canvas = document.getElementById("lienzo");
     var areaJuego = document.getElementById("preparate");
     var nuevoJuego = document.getElementById("btn-newgame");
+    var btnFullscreen = document.getElementById("btn_fullscreen");
 
     canvas.width = 340;
     canvas.height  = 510;
@@ -70,6 +78,9 @@ function iniciar() {
     areaJuego.addEventListener("mousedown", volar, false);
     areaJuego.addEventListener("mouseup", caida, false);
     nuevoJuego.addEventListener("click",reiniciarJuego);
+    btnFullscreen.addEventListener("click",toggleFullScreen);
+
+    ajustarPantalla(0);
 };
 
 window.onload = function() {
@@ -77,6 +88,7 @@ window.onload = function() {
     moverAlas ();
 }
 
+//funcion de animacion caida y vuelo de flappy
 function animationX(fps, sentido) {
     intervalX = setInterval(function() {
         var aleatorio = getRandom(40,200);
@@ -144,6 +156,7 @@ function animationX(fps, sentido) {
 
         puntaje.drawText();
 
+        //Actualizando el texto de puntaje en el canvas
         if (tubo1.x == flappy.x || tubo2.x == flappy.x || tubo3.x == flappy.x) {
             var puntos = document.getElementById("score");
             var puntajeFinal = document.getElementById("lbl_puntos");
@@ -157,15 +170,18 @@ function animationX(fps, sentido) {
     }, fps);
 };
 
+//funcion para obtener numeros aleatorios
 function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//funcion que hace que el flappy caiga *gravedad
 function caida() {
     clearInterval(intervalX);
     animationX(10,2);
 }
 
+//cada vez que se hace clic se dispara esta funcion que hace volar al flappy
 function volar(){
     var preImage = document.getElementById("preparate");
     clearInterval(intervalX);
@@ -181,6 +197,7 @@ function volar(){
     }
 }
 
+//animacion que cambia imagen de fondo para hacer efecto de movimiento de alas
 function moverAlas () {
     intervalFlappy = setInterval(function() {
         if (mueveAlas) {
@@ -197,8 +214,10 @@ function moverAlas () {
     }, 180);
 }
 
+//funcion que se dispara cuando el flappy toca el suelo o cualquiera de los tubos
 function perdiste() {
     var perdiste = document.getElementById("perdiste");
+    var areaJuego = document.getElementById("preparate");
     puntaje.texto = '';
     puntaje.drawText();
     gameover.draw();
@@ -206,15 +225,16 @@ function perdiste() {
     clearInterval(intervalX);
     clearInterval(intervalFlappy);
     flappy.vivo = false;
-    var areaJuego = document.getElementById("preparate");
     areaJuego.style.pointerEvents = 'none';
 }
 
+//funcion que permite reinicializar los valores para poder reiniciar el juego
 function reiniciarJuego() {
     var perdiste = document.getElementById("perdiste");
     var preImage = document.getElementById("preparate");
-    var areaJuego = document.getElementById("preparate");
-    areaJuego.style.pointerEvents = 'auto';
+    var puntajeFinal = document.getElementById("lbl_puntos");
+    puntajeFinal.innerHTML = 0;
+    preImage.style.pointerEvents = 'auto';
     pts = 0;
     juegoInicio = false;
     perdiste.style.display = "none";
@@ -225,4 +245,35 @@ function reiniciarJuego() {
     clearInterval(intervalX);
     iniciar();
     window.onload();
+}
+
+//funcion para activar/desactivar pantalla completa
+function toggleFullScreen() {
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {
+      document.documentElement.requestFullScreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullScreen) {
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    }
+  }
+  ajustarPantalla (121);
+}
+
+//ajusta pantalla al tamaño adecuado del navegador
+function ajustarPantalla (ajuste) {
+    var principal = document.getElementById("wrapper");
+    var altoPantalla = window.innerHeight;
+    var altoFinal = parseInt(altoPantalla) + parseInt(ajuste);
+    principal.style.height = altoFinal+"px";
 }

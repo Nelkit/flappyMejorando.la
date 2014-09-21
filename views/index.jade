@@ -5,16 +5,21 @@ block content
         section(class="cols sect-3", id="sidebar")
             div(id="top_bar")
                 span= title
-                a(href="https://github.com/Nelkit/flappyMejorando.la" target="_blank" class="btn-github") Ver Codigo Fuente
-            article(id="btns_social", class="block-sidebar")
-                h2 Compartelo
-                section
-                    a(href="https://twitter.com/share" class="twitter-share-button" data-text="Flappy @mejorandola desarrollado para la clase de Programación Basica" data-hashtags="soymejorandola") Tweet
-                    div(class="fb-like" data-href="http://flappy-mejorandola.herokuapp.com/" data-width="100" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false")
+                a(href="https://github.com/Nelkit/flappyMejorando.la" target="_blank" class="btn-github") Ver Código Fuente
+            article(class="block-sidebar")
+                a(href="#pantall_completa",id="btn_fullscreen") ⇅ Pantalla Completa
             article(id="puntaje", class="block-sidebar")
                 h2 Puntajes de Jugadores
                 table(id="lista", width="100%")
-
+                a(href="#refrescar" id="refresh") ↺ Refrescar
+            article(id="btns_social", class="block-sidebar")
+                h2 Compártelo
+                section
+                    a(href="https://twitter.com/share" class="twitter-share-button" data-text="Flappy @mejorandola desarrollado para la clase de Programación Basica" data-hashtags="soymejorandola") Tweet
+                    div(class="fb-like" data-href="http://flappy-mejorandola.herokuapp.com/" data-width="100" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false")
+            article(class="block-sidebar")
+                h2 Desarrollador
+                a(href="https://twitter.com/CNelkit" class="twitter-follow-button" data-show-count="false") @CNelkit
         section(class="cols sect-9",id="central")
             div(id="phone")
                 div(id="perdiste", class="animated bounceIn")
@@ -22,7 +27,8 @@ block content
                         article
                             span Puntos:
                                 i(id="lbl_puntos")  0
-                            span Mejor: 200
+                            span Mejor:
+                                i(id="lbl_mejor")  0
                         article
                             form(method="POST", action="/insert_score")
                                 input(type="text",name="name", id="name", placeholder="Tu Nombre", required)
