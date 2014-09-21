@@ -35,6 +35,8 @@ Abrir esta dirección en su navegador `http://localhost:3000/`
 
 Para dichos efectos utilice una libreria css que la pueden encontrar en este repositorio https://github.com/daneden/animate.css
 
+## Licencia
+Flappy Mejorandola está licenciado bajo la [MIT license.](https://github.com/Nelkit/flappyMejorando.la/blob/master/LICENSE)
 
 
 
