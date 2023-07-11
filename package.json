@@ -23,6 +23,6 @@
         "grunt-shell":"~0.7.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "18.x"
   }
 }
