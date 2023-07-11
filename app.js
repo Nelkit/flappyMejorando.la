@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //definir las rutas
-app.use('/', routes);
+app.use('/', routes); 
 //app.use('/create_table',createTable);
 app.use('/insert_score',insertScore);
 app.use('/list_score',listScore);
